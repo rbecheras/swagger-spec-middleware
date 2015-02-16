@@ -1,0 +1,8 @@
+{
+  "name": "petstore",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.0.0",
+    "swagger-spec-middleware": "file:../.."
+  }
+}
