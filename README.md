@@ -3,7 +3,7 @@ swagger-spec-middleware
 
 This is simple middleware for ExpressJS to handle resources given by the Swagger spec file.
 
-```
+```js
 var express = require('express');
 var app = express();
 var swaggerSpecMiddleware = require('swagger-spec-middleware');
@@ -18,7 +18,8 @@ swaggerSpecMiddleware.host(app, {
 ```
 
 where spec.json:
-```
+
+```js
 {
     "swagger": "2.0",
     "info": {
