@@ -48,6 +48,8 @@ where spec.json:
 }
 ```
 
+{:toc max_level=3 }
+
 #Documentation
 ##Installation
 
