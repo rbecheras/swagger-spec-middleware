@@ -49,7 +49,32 @@ where spec.json:
 ```
 
 #Documentation
-##Default handlers
+##Installation
+
+Install dependency in the project by:
+
+```
+npm install --save swagger-spec-middleware
+```
+
+Add to your ExpressJS application and start using it:
+
+```js
+var swaggerSpecMiddleware = require('swagger-spec-middleware');
+swaggerSpecMiddleware.host(app, {
+    spec: 'spec.json',
+    handlers: {
+        'petsGet': function (req, resp) {
+            resp.send(200);
+        }
+    }
+});
+```
+
+where spec.json is Swagger specification file with resources description that needs to be handled.
+
+##Handlers
+###Default handlers
 By default, default handlers are being looking first. When given operation is defined in spec file:
 
 ```js
@@ -73,7 +98,7 @@ then this resource can be handled by the default handler ```getPets```:
 }
 ```
 
-##Named handlers
+###Named handlers
 Resource can be explicitly named by operationId in spec operation:
 
 ```js
@@ -97,3 +122,4 @@ then supported handler for this operation is ```petsGet```.
 ```
 
 OperationId handler overrides default handler. When also ```getPets``` handler specified, only ```petsGet``` will be handled.
+
