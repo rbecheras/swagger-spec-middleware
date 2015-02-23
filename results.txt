@@ -1,0 +1,36 @@
+Application is running on port 8081
+
+[0m[0m
+[0m  Should perform basic operations on pets by operationId, and also that custom operationId is before default handlers[0m
+[0m    get /api/pets[0m
+[2K[0G    [32m  ✓[0m[90m returns a pet [0m
+[0m    post /api/pets[0m
+[2K[0G    [32m  ✓[0m[90m creates pet [0m
+[0m    put /api/pets[0m
+[2K[0G    [32m  ✓[0m[90m puts pet [0m
+[0m    delete /api/pets[0m
+[2K[0G    [32m  ✓[0m[90m deletes pet [0m
+
+[0m  Should perform basic operations on cars by default operation name[0m
+[0m    get /api/cars[0m
+[2K[0G    [32m  ✓[0m[90m returns a car [0m
+[0m    post /api/cars[0m
+[2K[0G    [32m  ✓[0m[90m creates car [0m
+[0m    put /api/cars[0m
+[2K[0G    [32m  ✓[0m[90m puts car [0m
+[0m    delete /api/cars[0m
+[2K[0G    [32m  ✓[0m[90m deletes car [0m
+
+[0m  Should perform basic operationson planes by operationId that is before default handlers[0m
+[0m    get /api/planes[0m
+[2K[0G    [32m  ✓[0m[90m returns a plane [0m
+[0m    post /api/planes[0m
+[2K[0G    [32m  ✓[0m[90m creates plane [0m
+[0m    put /api/planes[0m
+[2K[0G    [32m  ✓[0m[90m puts plane [0m
+[0m    delete /api/planes[0m
+[2K[0G    [32m  ✓[0m[90m deletes plane [0m
+
+
+[92m [0m[32m 12 passing[0m[90m (55ms)[0m
+
