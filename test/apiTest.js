@@ -10,7 +10,7 @@ var doneTest = function (done) {
     };
 };
 
-var checkCrudStatus = function (path, entity) {
+var get = function (path, entity) {
     describe('get ' + path, function () {
         it('returns a ' + entity, function (done) {
             api(app)
@@ -19,6 +19,9 @@ var checkCrudStatus = function (path, entity) {
                     .end(doneTest(done));
         });
     });
+};
+
+var post = function (path, entity) {
     describe('post ' + path, function () {
         it('creates ' + entity, function (done) {
             api(app)
@@ -27,6 +30,9 @@ var checkCrudStatus = function (path, entity) {
                     .end(doneTest(done));
         });
     });
+};
+
+var put = function (path, entity) {
     describe('put ' + path, function () {
         it('puts ' + entity, function (done) {
 
@@ -36,6 +42,10 @@ var checkCrudStatus = function (path, entity) {
                     .end(doneTest(done));
         });
     });
+
+};
+
+var del = function (path, entity) {
     describe('delete ' + path, function () {
         it('deletes ' + entity, function (done) {
 
@@ -45,6 +55,14 @@ var checkCrudStatus = function (path, entity) {
                     .end(doneTest(done));
         });
     });
+
+};
+
+var checkCrudStatus = function (path, entity) {
+    get(path, entity);
+    post(path, entity);
+    put(path, entity);
+    del(path, entity);
 };
 
 describe('Should perform basic operations on pets by operationId, and also that custom operationId is before default handlers', function () {
