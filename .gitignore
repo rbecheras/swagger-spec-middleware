@@ -30,3 +30,6 @@ node_modules
 /examples/petstore/nbproject/private/
 /nbproject/
 /examples/petstore/nbproject/
+/html-report/
+/dist/
+/cobertura-coverage.xml

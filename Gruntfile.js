@@ -17,6 +17,7 @@ module.exports = function (grunt) {
                 node: true,
                 globals: {
                     /* MOCHA */
+                    "define": false,
                     "describe": false,
                     "it": false,
                     "before": false,
@@ -29,7 +30,7 @@ module.exports = function (grunt) {
                 src: 'Gruntfile.js'
             },
             lib_test: {
-                src: ['lib/**/*.js', 'test/**/*.js', 'index.js']
+                src: ['src/**/*.js', 'tests/**/*.js', 'index.js']
             }
         },
         watch: {
@@ -39,25 +40,27 @@ module.exports = function (grunt) {
             },
             lib_test: {
                 files: '<%= jshint.lib_test.src %>',
-                tasks: ['jshint:lib_test', 'simplemocha']
+                tasks: ['jshint:lib_test', 'intern']
             }
         },
-        mochaTest: {
-            test: {
+        intern: {
+            unit_testing: {
                 options: {
-                    reporter: 'spec'
-                },
-                src: ['test/**/*.js']
+                    config: 'tests/intern',
+                    suites: ['tests/unit/all'],
+                    reporters: ['console', 'lcovhtml', 'cobertura']
+                }
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('intern');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['test']);
-    grunt.registerTask('test', ['jshint', 'mochaTest']);
+//    grunt.registerTask('test', ['jshint', 'intern']);
+    grunt.registerTask('test', ['intern']);
     grunt.registerTask('testing', ['test', 'watch']);
 
 };

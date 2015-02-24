@@ -1,0 +1,4 @@
+define([
+    './appTest',
+    './middlewareTest'
+]);
