@@ -1,6 +1,9 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+        clean: {
+            coverage: ["html-report", 'cobertura-coverage.xml']
+        },
         jshint: {
             options: {
                 curly: true,
@@ -30,24 +33,24 @@ module.exports = function (grunt) {
                 src: 'Gruntfile.js'
             },
             lib_test: {
-                src: ['src/**/*.js', 'tests/**/*.js', 'index.js']
+                src: ['src/**/*.js', 'test/**/*.js', 'index.js']
             }
         },
         watch: {
             gruntfile: {
                 files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
+                tasks: ['jshint:gruntfile', 'test']
             },
             lib_test: {
                 files: '<%= jshint.lib_test.src %>',
-                tasks: ['jshint:lib_test', 'intern']
+                tasks: ['jshint:lib_test', 'test']
             }
         },
         intern: {
             unit_testing: {
                 options: {
-                    config: 'tests/intern',
-                    suites: ['tests/unit/all'],
+                    config: 'test/intern',
+                    suites: ['test/unit/all'],
                     reporters: ['console', 'lcovhtml', 'cobertura']
                 }
             }
@@ -55,12 +58,12 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('intern');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['test']);
-//    grunt.registerTask('test', ['jshint', 'intern']);
-    grunt.registerTask('test', ['intern']);
+    grunt.registerTask('test', ['clean:coverage', 'intern']);
     grunt.registerTask('testing', ['test', 'watch']);
 
 };

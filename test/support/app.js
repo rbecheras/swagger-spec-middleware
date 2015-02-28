@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var express = require('express');
 var app = express();
-var swaggerSpecMiddleware = require('../..');
+var swaggerSpecMiddleware = require('../../index.js');
 
 var petsHandlers = {
     'petsGet': function (req, resp) {

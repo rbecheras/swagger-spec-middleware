@@ -24,5 +24,5 @@ define({
 	},
 	suites: [],
 	functionalSuites: [],
-	excludeInstrumentation: /^(?:tests|node_modules)\//
+	excludeInstrumentation: /^(?:test|node_modules)\//
 });
