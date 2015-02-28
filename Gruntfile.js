@@ -47,10 +47,24 @@ module.exports = function (grunt) {
             }
         },
         intern: {
-            unit_testing: {
+            unit: {
                 options: {
                     config: 'test/intern',
                     suites: ['test/unit/all'],
+                    reporters: ['console', 'lcovhtml', 'cobertura']
+                }
+            },
+            integration: {
+                options: {
+                    config: 'test/intern',
+                    suites: ['test/integration/all'],
+                    reporters: ['console', 'lcovhtml', 'cobertura']
+                }
+            },
+            functional: {
+                options: {
+                    config: 'test/intern',
+                    suites: ['test/functional/all'],
                     reporters: ['console', 'lcovhtml', 'cobertura']
                 }
             }

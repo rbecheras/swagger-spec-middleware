@@ -22,7 +22,5 @@ define({
 	loader: {
 		packages: [{ name: 'app', location: 'src' } ]
 	},
-	suites: [],
-	functionalSuites: [],
 	excludeInstrumentation: /^(?:test|node_modules)\//
 });
