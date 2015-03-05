@@ -5,11 +5,16 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
+    "chai": "^2.1.1",
+    "chai-http": "^1.0.0",
     "grunt": "~0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-watch": "^0.6.1",
-    "intern": "^2.2.2"
+    "hippie": "^0.3.0",
+    "intern": "^2.2.2",
+    "portfinder": "^0.4.0",
+    "q": "^1.2.0"
   },
   "dependencies": {
     "express": "~4.0.0",

@@ -50,22 +50,22 @@ module.exports = function (grunt) {
             unit: {
                 options: {
                     config: 'test/intern',
-                    suites: ['test/unit/all'],
-                    reporters: ['console', 'lcovhtml', 'cobertura']
+                    suites: ['test/unit/all']
+                    //reporters: ['console', 'lcovhtml', 'cobertura']
                 }
             },
             integration: {
                 options: {
                     config: 'test/intern',
-                    suites: ['test/integration/all'],
-                    reporters: ['console', 'lcovhtml', 'cobertura']
+                    suites: ['test/integration/all']
+                    //reporters: ['console', 'lcovhtml', 'cobertura']
                 }
             },
             functional: {
                 options: {
                     config: 'test/intern',
-                    suites: ['test/functional/all'],
-                    reporters: ['console', 'lcovhtml', 'cobertura']
+                    suites: ['test/functional/all']
+                    //reporters: ['console']
                 }
             }
         }
@@ -78,6 +78,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['test']);
     grunt.registerTask('test', ['clean:coverage', 'intern']);
+    grunt.registerTask('test-functional', ['clean:coverage', 'intern:functional']);
     grunt.registerTask('testing', ['test', 'watch']);
 
 };
