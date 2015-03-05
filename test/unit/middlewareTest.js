@@ -6,7 +6,6 @@ define(function (require) {
   suite({
     'should host file': function(){
           var app = require('intern/dojo/node!../../app/middleware');
-          console.log("test: " + app);
     }
   });
 });
