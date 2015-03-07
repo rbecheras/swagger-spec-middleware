@@ -4,59 +4,59 @@ var app = express();
 var swaggerSpecMiddleware = require('../../../index.js');
 
 var petsHandlers = {
-    'petsGet': function (req, resp) {
-        resp.send(200);
+    'petsGet': function (meta) {
+        return "handled";
     },
-    'petsPost': function (req, resp) {
-        resp.send(200);
+    'petsPost': function (meta) {
+        return "handled";
     },
-    'petsPut': function (req, resp) {
-        resp.send(200);
+    'petsPut': function (meta) {
+        return "handled";
     },
-    'petsDel': function (req, resp) {
-        resp.send(200);
+    'petsDel': function (meta) {
+        return "handled";
     }
 };
 
 var carsHandlers = {
-    'getCars': function (req, resp) {
-        resp.send(200);
+    'getCars': function (meta) {
+        return "handled";
     },
-    'postCars': function (req, resp) {
-        resp.send(200);
+    'postCars': function (meta) {
+        return "handled";
     },
-    'putCars': function (req, resp) {
-        resp.send(200);
+    'putCars': function (meta) {
+        return "handled";
     },
-    'deleteCars': function (req, resp) {
-        resp.send(200);
+    'deleteCars': function (meta) {
+        return "handled";
     }
 };
 
 var planesHandlers = {
-    'planesGet': function (req, resp) {
-        resp.send(200);
+    'planesGet': function (meta) {
+        return "handled";
     },
-    'planesPost': function (req, resp) {
-        resp.send(200);
+    'planesPost': function (meta) {
+        return "handled";
     },
-    'planesPut': function (req, resp) {
-        resp.send(200);
+    'planesPut': function (meta) {
+        return "handled";
     },
-    'planesDel': function (req, resp) {
-        resp.send(200);
+    'planesDel': function (meta) {
+        return "handled";
     },
-    'getPlanes': function (req, resp) {
-        resp.send(300);
+    'getPlanes': function (meta) {
+        return "not handled";
     },
-    'postPlanes': function (req, resp) {
-        resp.send(300);
+    'postPlanes': function (meta) {
+        return "not handled";
     },
-    'putPlanes': function (req, resp) {
-        resp.send(300);
+    'putPlanes': function (meta) {
+        return "not handled";
     },
-    'deletePlanes': function (req, resp) {
-        resp.send(300);
+    'deletePlanes': function (meta) {
+        return "not handled";
     }
 };
 

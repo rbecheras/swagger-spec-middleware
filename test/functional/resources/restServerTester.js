@@ -50,7 +50,7 @@ define(function (require) {
         return api().delete(path).then(callback);
     };
 
-    me.checkCrudStatus = function (path, callback) {
+    me.crud = function (path, callback) {
         return q.all([
             me.get(path, callback),
             me.post(path, callback),

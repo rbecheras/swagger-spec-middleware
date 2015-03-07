@@ -1,3 +1,5 @@
 define([
-    './middlewareTest'
+    './middlewareTest',
+    './parameterExtractorTest',
+    './parameterConverterTest'
 ]);

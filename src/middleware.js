@@ -23,20 +23,32 @@ var handleMethod = function (app, method, path, callback) {
     }
 };
 
-var unhandledOperationHandler = function(req, res){
-    res.send(404);
+var unhandledOperationHandler = function (req, res) {
+    throw {status: 404, message: 'unhalted operation'};
 };
 
-var determineHandler = function(method, path, operation, handlers){
+var determineHandler = function (method, path, operation, handlers) {
     var operationId = operation.operationId;
-    if(operationId && _.has(handlers, operationId)){
+    if (operationId && _.has(handlers, operationId)) {
         return handlers[operationId];
     }
-    var defaultMethod = _.camelCase(method+'-'+path);
-    if(_.has(handlers, defaultMethod)){
+    var defaultMethod = _.camelCase(method + '-' + path);
+    if (_.has(handlers, defaultMethod)) {
         return handlers[defaultMethod];
     }
     return unhandledOperationHandler;
+};
+
+
+
+
+
+var determineParams = function (req, spec, pathObject, operation, method) {
+    var meta = {};
+    var parameterSpec = operation.parameters;
+    var handlerInputParameters
+    determineInputParameters(req, parameterSpec);
+    return [meta];
 };
 
 module.exports.host = function (app, config) {
@@ -45,20 +57,20 @@ module.exports.host = function (app, config) {
         basePath: '/api',
         handlers: {}
     }, config);
-    var spec = readJsonFile(config.spec); 
+    var spec = readJsonFile(config.spec);
     var pathObjects = spec.paths;
-//    var paths = _.keys(pathObjects);
-//    console.log('hosting: %j', pathObjects);
     _.forIn(pathObjects, function (pathObject, pathUrl) {
-//        console.log('handling path: %j', pathUrl);
         _.forIn(pathObject, function (operation, method) {
-//            console.log('handling %j %j', method, operation);
             var path = config.basePath + pathUrl;
+            var handler = determineHandler(method, pathUrl, operation, config.handlers);
             var callback = function (req, res) {
-//                console.log('calling: %j %j', method, path);
-                
-                determineHandler(method, pathUrl, operation, config.handlers)(req, res);
-//                res.json({status: 'implemented, method: ', 'method':  method, operation: operation});
+                try {
+                    var resultData = handler.apply(undefined, determineParams(req, spec, pathObject, operation, method));
+                    res.json(resultData);
+                } catch (e) {
+                    res.send(e.status);
+
+                }
             };
             handleMethod(app, method, path, callback);
         });
