@@ -191,7 +191,7 @@ swaggerSpecMiddleware.host(app, {
 });
 ```
 
-### Parameter inputs:
+### Parameter inputs
 Framework supports following parameter input sources:
 
 * query
@@ -200,7 +200,7 @@ Framework supports following parameter input sources:
 * formData
 * body
 
-### Parameter types and formats:
+### Parameter types and formats
 Parameters are automatically converted to target types as follow:
 
 |Common Name|type           |format        |Comments                         |
