@@ -204,7 +204,7 @@ Framework supports following parameter input sources:
 Parameters are automatically converted to target types as follow:
 
 |Common Name|type           |format        |Comments                         |
-|-----------|:-------------:|-------------:|--------------------------------:|
+|:---------:|:-------------:|:------------:|:-------------------------------:|
 |integer    |integer        |int32         |signed 32 bits                   |
 |long       |integer        |int64         |signed 64 bits                   |
 |float      |number         |float         |                                 |
