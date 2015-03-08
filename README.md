@@ -203,7 +203,16 @@ Framework supports following parameter input sources:
 ### Parameter types and formats:
 Parameters are automatically converted to target types as follow:
 
-||Common Name||type||format||Comments||
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
+
+
+|Common Name|type|format|Comments|
+|----------|:-------------:|------:|
 |integer|integer|int32|signed 32 bits|
 |long|integer|int64|signed 64 bits|
 |float|number|float||
