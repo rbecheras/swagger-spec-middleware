@@ -3,81 +3,63 @@ var express = require('express');
 var app = express();
 var swaggerSpecMiddleware = require('../../../index.js');
 
+var handledFunction = function (meta) {
+    return "handled";
+};
+
+var notHandledFunction = function (meta) {
+    return "not handled";
+};
+
 var petsHandlers = {
-    'petsGet': function (meta) {
-        return "handled";
-    },
-    'petsPost': function (meta) {
-        return "handled";
-    },
-    'petsPut': function (meta) {
-        return "handled";
-    },
-    'petsDel': function (meta) {
-        return "handled";
-    }
+    'petsGet': handledFunction,
+    'petsPost': handledFunction,
+    'petsPut': handledFunction,
+    'petsDel': handledFunction,
+    'petsOptions': handledFunction,
+    'petsHead': handledFunction,
+    'petsPatch': handledFunction
 };
 
 var carsHandlers = {
-    'getCars': function (meta) {
-        return "handled";
-    },
-    'postCars': function (meta) {
-        return "handled";
-    },
-    'putCars': function (meta) {
-        return "handled";
-    },
-    'deleteCars': function (meta) {
-        return "handled";
-    }
+    'getCars': handledFunction,
+    'postCars': handledFunction,
+    'putCars': handledFunction,
+    'deleteCars': handledFunction,
+    'optionsCars': handledFunction,
+    'headCars': handledFunction,
+    'patchCars': handledFunction
 };
 
 var planesHandlers = {
-    'planesGet': function (meta) {
-        return "handled";
-    },
-    'planesPost': function (meta) {
-        return "handled";
-    },
-    'planesPut': function (meta) {
-        return "handled";
-    },
-    'planesDel': function (meta) {
-        return "handled";
-    },
-    'getPlanes': function (meta) {
-        return "not handled";
-    },
-    'postPlanes': function (meta) {
-        return "not handled";
-    },
-    'putPlanes': function (meta) {
-        return "not handled";
-    },
-    'deletePlanes': function (meta) {
-        return "not handled";
-    }
+    'planesGet': handledFunction,
+    'planesPost': handledFunction,
+    'planesPut': handledFunction,
+    'planesDel': handledFunction,
+    'planesOptions': handledFunction,
+    'planesHead': handledFunction,
+    'planesPatch': handledFunction,
+    'getPlanes': notHandledFunction,
+    'postPlanes': notHandledFunction,
+    'putPlanes': notHandledFunction,
+    'deletePlanes': notHandledFunction,
+    'optionsPlanes': notHandledFunction,
+    'headPlanes': notHandledFunction,
+    'patchPlanes': notHandledFunction
 };
 
 var dollsHandlers = {
     'getDolls': function (meta, limit, name) {
         return {limit: limit, name: name};
     },
-    'postDolls': function (meta) {
-        return "not handled";
-    },
-    'putDolls': function (meta) {
-        return "not handled";
-    },
-    'deleteDolls': function (meta) {
-        return "not handled";
-    }
+    'postDolls': notHandledFunction,
+    'putDolls': notHandledFunction,
+    'deleteDolls': notHandledFunction
 };
 swaggerSpecMiddleware.host(app, {
     spec: 'test/functional/resources/toyStore.json',
     handlers: _.merge(petsHandlers, carsHandlers, planesHandlers, dollsHandlers)
-    
+
 });
 app.get('/test', function (req, res) {
     console.log('hitting test');

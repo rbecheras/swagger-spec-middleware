@@ -33,3 +33,4 @@ node_modules
 /html-report/
 /dist/
 /cobertura-coverage.xml
+/_site

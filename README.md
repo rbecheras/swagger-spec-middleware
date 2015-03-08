@@ -124,8 +124,16 @@ then supported handler for this operation is ```petsGet```.
 OperationId handler overrides default handler. When also ```getPets``` handler specified, only ```petsGet``` will be handled.
 
 
+##Operations
+Framework supports following operation:
+
+* get
+* post
+* put
+* delete
+
 ##Parameters
-If specification declares parameters for the operation, resolved values will be passed as handler arguments in the same order as in spec:
+If specification declares parameters for the operation, resolved values will be passed as handler arguments in the same order as in spec. For example if ```tags``` and ```limit``` parameter are specified as follow: 
 
 ```js
 "/pets": {
@@ -140,33 +148,19 @@ If specification declares parameters for the operation, resolved values will be 
         ],
         "parameters": [
           {
-            "name": "tags",
+            "name": "tag",
             "in": "query",
-            "description": "tags to filter by",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
+            "type": "string"
           },
           {
             "name": "limit",
             "in": "query",
-            "description": "maximum number of results to return",
-            "required": false,
             "type": "integer",
             "format": "int32"
           }
         ],
         "responses": {
           "200": {
-            "description": "pet response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/pet"
-              }
             }
           },
           "default": {
@@ -179,3 +173,43 @@ If specification declares parameters for the operation, resolved values will be 
       }
       }
 ```
+
+then in handler they will be passed after meta object:
+
+```js
+swaggerSpecMiddleware.host(app, {
+    spec: 'spec.json',
+    handlers: {
+        getPets: function(meta, tags, limit){
+            return {
+                tags: tags,
+                limit: limit
+            }
+        }
+    }
+
+});
+```
+
+### Parameter inputs:
+Framework supports following parameter input sources:
+
+* query
+* heade
+* path
+* formData
+* body
+
+### Parameter types and formats:
+Parameters are automatically converted to target types as follow:
+
+||Common Name||type||format||Comments||
+|integer|integer|int32|signed 32 bits|
+|long|integer|int64|signed 64 bits|
+|float|number|float||
+|double|number|double||
+|string|string|||
+|byte|string|byte||
+|boolean|boolean|||
+|date|string|date|As defined by full-date - RFC3339|
+|dateTime||string|date-time|As defined by date-time - RFC3339|

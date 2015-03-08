@@ -1,6 +1,7 @@
 var fs = require('fs');
 var _ = require('lodash');
-var parameterExtractor = require('./parameterExtractor');;
+var parameterExtractor = require('./parameterExtractor');
+;
 
 var readJsonFile = function (filePath) {
     return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -15,10 +16,6 @@ var handleMethod = function (app, method, path, callback) {
         app.put(path, callback);
     } else if (method === 'delete') {
         app.delete(path, callback);
-    } else if (method === 'head') {
-        app.options(path, callback);
-    } else if (method === 'patch') {
-        app.patch(path, callback);
     } else {
         throw 'Unknow method type: ' + method;
     }
@@ -42,13 +39,10 @@ var determineHandler = function (method, path, operation, handlers) {
 };
 
 
-
-
-
 var determineParams = function (req, spec, pathObject, operation, method) {
     var meta = {};
     var inputPArameters = parameterExtractor.extractInputParameters(req, operation.parameters);
-    return _.union([meta],inputPArameters);
+    return _.union([meta], inputPArameters);
 };
 
 var readSpec = function (inputSpecConfig) {
