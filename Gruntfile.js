@@ -32,7 +32,7 @@ module.exports = function (grunt) {
             gruntfile: {
                 src: 'Gruntfile.js'
             },
-            lib_test: {
+            test: {
                 src: ['src/**/*.js', 'test/**/*.js', 'index.js']
             },
             unit_test: {
@@ -40,6 +40,9 @@ module.exports = function (grunt) {
             },
             functional_test: {
                 src: ['src/**/*.js', 'test/functional/**/*.js', 'index.js']
+            },
+            integration_test: {
+                src: ['src/**/*.js', 'test/integration/**/*.js', 'index.js']
             }
         },
         watch: {
@@ -47,8 +50,8 @@ module.exports = function (grunt) {
                 files: '<%= jshint.gruntfile.src %>',
                 tasks: ['jshint:gruntfile', 'test']
             },
-            lib_test: {
-                files: '<%= jshint.lib_test.src %>',
+            test: {
+                files: '<%= jshint.test.src %>',
                 tasks: ['test']
             },
             unit_test: {
@@ -58,28 +61,39 @@ module.exports = function (grunt) {
             functional_test: {
                 files: '<%= jshint.functional_test.src %>',
                 tasks: ['test-functional']
+            },
+            integration_test: {
+                files: '<%= jshint.integration_test.src %>',
+                tasks: ['test-integration']
             }
         },
         intern: {
-            unit: {
+            options: {
+                config: 'test/intern',
+                reporters: ['console', 'lcovhtml', 'cobertura']
+            },
+            all: {
                 options: {
-                    config: 'test/intern',
-                    suites: ['test/unit/all'],
-                    reporters: ['console', 'lcovhtml', 'cobertura']
+                    suites: [
+                        'test/unit/all',
+                        'test/functional/all',
+                        'test/integration/all'
+                    ]
                 }
             },
-            integration: {
+            unit: {
                 options: {
-                    config: 'test/intern',
-                    suites: ['test/integration/all']
-                    //reporters: ['console', 'lcovhtml', 'cobertura']
+                    suites: ['test/unit/all']
                 }
             },
             functional: {
                 options: {
-                    config: 'test/intern',
                     suites: ['test/functional/all']
-                    //reporters: ['console']
+                }
+            },
+            integration: {
+                options: {
+                    suites: ['test/integration/all']
                 }
             }
         }
@@ -91,12 +105,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['test']);
-    grunt.registerTask('test', ['clean:coverage', 'intern']);
-    grunt.registerTask('testing', ['test', 'watch']);
-    
-    grunt.registerTask('test-unit', ['clean:coverage', 'intern:unit']);
-    grunt.registerTask('testing-unit', ['test-unit', 'watch:unit_test']);
 
+    grunt.registerTask('test', ['clean:coverage', 'intern:all']);
+    grunt.registerTask('test-unit', ['clean:coverage', 'intern:unit']);
     grunt.registerTask('test-functional', ['clean:coverage', 'intern:functional']);
+    grunt.registerTask('test-integration', ['clean:coverage', 'intern:integration']);
+
+    grunt.registerTask('testing', ['test', 'watch:test']);
+    grunt.registerTask('testing-unit', ['test-unit', 'watch:unit_test']);
     grunt.registerTask('testing-functional', ['test-functional', 'watch:functional_test']);
+    grunt.registerTask('testing-integration', ['test-integration', 'watch:integration_test']);
 };

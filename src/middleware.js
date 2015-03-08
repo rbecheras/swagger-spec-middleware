@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require('lodash');
+var parameterExtractor = require('./parameterExtractor');;
 
 var readJsonFile = function (filePath) {
     return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -24,7 +25,8 @@ var handleMethod = function (app, method, path, callback) {
 };
 
 var unhandledOperationHandler = function (req, res) {
-    throw {status: 404, message: 'unhalted operation'};
+    console.log('unhandled');
+    throw {status: 404, message: 'unhanled operation'};
 };
 
 var determineHandler = function (method, path, operation, handlers) {
@@ -45,10 +47,12 @@ var determineHandler = function (method, path, operation, handlers) {
 
 var determineParams = function (req, spec, pathObject, operation, method) {
     var meta = {};
-    var parameterSpec = operation.parameters;
-    var handlerInputParameters
-    determineInputParameters(req, parameterSpec);
-    return [meta];
+    var inputPArameters = parameterExtractor.extractInputParameters(req, operation.parameters);
+    return _.union([meta],inputPArameters);
+};
+
+var readSpec = function (inputSpecConfig) {
+    return _.isObject(inputSpecConfig) ? inputSpecConfig : readJsonFile(inputSpecConfig);
 };
 
 module.exports.host = function (app, config) {
@@ -57,7 +61,8 @@ module.exports.host = function (app, config) {
         basePath: '/api',
         handlers: {}
     }, config);
-    var spec = readJsonFile(config.spec);
+
+    var spec = readSpec(config.spec);
     var pathObjects = spec.paths;
     _.forIn(pathObjects, function (pathObject, pathUrl) {
         _.forIn(pathObject, function (operation, method) {
@@ -68,7 +73,7 @@ module.exports.host = function (app, config) {
                     var resultData = handler.apply(undefined, determineParams(req, spec, pathObject, operation, method));
                     res.json(resultData);
                 } catch (e) {
-                    res.send(e.status);
+                    res.status(e.status).send(e.message);
 
                 }
             };

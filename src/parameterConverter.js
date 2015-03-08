@@ -22,7 +22,6 @@ var _ = require('lodash');
  * @param items
  */
 var convert = function (value, type, format, items) {
-    console.log('Converting: ' + value);
     if ('integer' === type) {
         if('int32' === format || 'int64' === format) {
             return parseInt(value);

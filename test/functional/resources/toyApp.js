@@ -60,9 +60,23 @@ var planesHandlers = {
     }
 };
 
+var dollsHandlers = {
+    'getDolls': function (meta, limit, name) {
+        return {limit: limit, name: name};
+    },
+    'postDolls': function (meta) {
+        return "not handled";
+    },
+    'putDolls': function (meta) {
+        return "not handled";
+    },
+    'deleteDolls': function (meta) {
+        return "not handled";
+    }
+};
 swaggerSpecMiddleware.host(app, {
-    spec: 'test/functional/resources/toystore.json',
-    handlers: _.merge(petsHandlers, carsHandlers, planesHandlers)
+    spec: 'test/functional/resources/toyStore.json',
+    handlers: _.merge(petsHandlers, carsHandlers, planesHandlers, dollsHandlers)
     
 });
 app.get('/test', function (req, res) {

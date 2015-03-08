@@ -10,6 +10,14 @@
     "http"
   ],
   "paths": {
+    "/unhandled": {
+      "get": {
+        "responses": {
+          "200": {
+          }
+        }
+      }
+    },
     "/pets": {
       "get": {
         "operationId": "petsGet",
@@ -99,7 +107,6 @@
     "/dolls": {
       "get": {
         "description": "Returns all dolls from the system that the user has access to",
-        "operationId": "findPets",
         "produces": [
           "application/json",
           "application/xml",
