@@ -203,22 +203,14 @@ Framework supports following parameter input sources:
 ### Parameter types and formats:
 Parameters are automatically converted to target types as follow:
 
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
-
-
-
-|Common Name|type           |format        |Comments        |
-|-----------|:-------------:|-------------:|---------------:|
-|integer    |integer        |int32         |signed 32 bits  |
-|long|integer|int64|signed 64 bits|
-|float|number|float||
-|double|number|double||
-|string|string|||
-|byte|string|byte||
-|boolean|boolean|||
-|date|string|date|As defined by full-date - RFC3339|
-|dateTime||string|date-time|As defined by date-time - RFC3339|
+|Common Name|type           |format        |Comments                         |
+|-----------|:-------------:|-------------:|--------------------------------:|
+|integer    |integer        |int32         |signed 32 bits                   |
+|long       |integer        |int64         |signed 64 bits                   |
+|float      |number         |float         |                                 |
+|double     |number         |double        |                                 |
+|boolean    |boolean        |              |                                 |
+|string     |string         |              |                                 |
+|byte       |string         |byte          |                                 |
+|date       |string         |date          |As defined by full-date - RFC3339|
+|dateTime   |string         |date-time     |As defined by date-time - RFC3339|
