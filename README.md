@@ -45,6 +45,13 @@ This is simple middleware for ExpressJS to handle resources given by the Swagger
 * Support for XML Objects
 
 # Hello world
+Install it:
+
+```
+npm install --save swagger-spec-middleware
+```
+
+use it next to ExpressJS app:
 
 ```js
 var express = require('express');
