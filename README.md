@@ -273,7 +273,7 @@ Following ruless obey regarding exceptions:
 * When the called resource hits described in the spec operation which throws generic exception, then it results in 404 page with message: "Unknown exception occured"
 * When the called resource hits described in the spec operation which customized exception then it might results in error page with custom exception status or custom exception message
 
-### Overriding default behaviour
+### Customizing
 Statuses and messages for above exceptions can be overridden with the configuration. Following attributes can be overridden:
 
 * **defaultExceptionStatus** (default: 404) - request status for handled exceptions
