@@ -14,6 +14,7 @@ define(function (require) {
 
             portfinder.getPort(function (err, port) {
                 me.port = port;
+                me.host = 'http://localhost:' + me.port;
                 me.server = app.listen(me.port, function () {
                     console.log('server is running on port %j', me.port);
                     defer.resolve();
@@ -31,10 +32,11 @@ define(function (require) {
     };
 
     me.api = function () {
-        return chai.request('http://localhost:' + me.port);
+        return chai.request(me.host);
     };
 
     me.get = function (path, callback) {
+        //console.log('GET: ' + me.host+path);
         return api().get(path).then(callback);
     };
 

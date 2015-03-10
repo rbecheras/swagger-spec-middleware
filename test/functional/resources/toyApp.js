@@ -56,9 +56,22 @@ var dollsHandlers = {
     'putDolls': notHandledFunction,
     'deleteDolls': notHandledFunction
 };
+
+var exceptionsHandlers = {
+    'getExceptions': function(){
+        throw "Sample exception message"
+    },
+    'getCustomExceptionsMessage': function(){
+        throw {message: "Custom exception message"}
+    },
+    'getCustomExceptionsMessageAndStatus': function(){
+        throw {message: "Custom exception message with status", status: 401}
+    }
+}
+
 swaggerSpecMiddleware.host(app, {
     spec: 'test/functional/resources/toyStore.json',
-    handlers: _.merge(petsHandlers, carsHandlers, planesHandlers, dollsHandlers)
+    handlers: _.merge(petsHandlers, carsHandlers, planesHandlers, dollsHandlers, exceptionsHandlers)
 
 });
 app.get('/test', function (req, res) {

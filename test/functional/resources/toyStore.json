@@ -10,6 +10,30 @@
     "http"
   ],
   "paths": {
+    "/exceptions": {
+      "get": {
+        "responses": {
+          "200": {
+          }
+        }
+      }
+    },
+    "/customExceptionsMessage": {
+      "get": {
+        "responses": {
+          "200": {
+          }
+        }
+      }
+    },
+    "/customExceptionsMessageAndStatus": {
+      "get": {
+        "responses": {
+          "200": {
+          }
+        }
+      }
+    },
     "/unhandled": {
       "get": {
         "responses": {

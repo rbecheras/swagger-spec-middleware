@@ -265,4 +265,30 @@ Parameters are automatically converted to target types as follow:
 |dateTime   |string         |date-time     |As defined by date-time - RFC3339|
 
 ## Errors and exceptions
-If an
+### Default behaviour
+Following ruless obey regarding exceptions:
+
+* When the called resource is not described in the spec, then next router declared in ExpressJS configuration can catch it
+* When the called resource hits described in the spec operation which is unhandled, then it results in 404 page with message: "Unhandled operation"
+* When the called resource hits described in the spec operation which throws generic exception, then it results in 404 page with message: "Unknown exception occured"
+* When the called resource hits described in the spec operation which customized exception then it might results in error page with custom exception status or custom exception message
+
+### Overriding default behaviour
+Statuses and messages for above exceptions can be overridden with the configuration. Following attributes can be overridden:
+
+* **defaultExceptionStatus** (default: 404) - request status for handled exceptions
+* **defaultExceptionMessage** (default: "Unknown exception occured") - request message for handled exceptions
+* **unhandledOperationHandler** (default: ```function () { throw {status: 404, message: 'Unhandled operation'}; })``` - handler for unhandled operations
+
+```js
+swaggerSpecMiddleware.host(app, {
+    spec: 'spec.json',
+    handlers: {...},
+    defaultExceptionStatus: 403,
+    defaultExceptionMessage: 'Customized unknown exception occured',
+    unhandledOperationHandler: function () {
+        throw {status: 403, message: 'Customized unhandled operation'};
+    }
+
+});
+```
