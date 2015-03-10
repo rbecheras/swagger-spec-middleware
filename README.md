@@ -12,6 +12,7 @@ This is simple middleware for ExpressJS to handle resources given by the Swagger
 * Parameters are automatically passed to handlers as arguments
 * Support ```query```, ```header```,  ```path```, ```formData```, ```body``` parameter sources
 * Parameters are automatically converted to the target type and format
+* Handling exceptions, generic, custom and global exceptions customization
 
 ##Planned features
 * Support parameters default value
@@ -36,7 +37,6 @@ This is simple middleware for ExpressJS to handle resources given by the Swagger
 * Support for ```consumes``` and ```produces```; input and output format determined by ```Accept``` and ```Content-Type``` header fields
 * Support inheritance for specification configuration model
 * Definitions, Parameters, Responses and References support
-* Extend exceptions support
 * Support other Swagger Spec versions than 2.0
 * Add support for lifecycle like turn off validation, preprocessors and afterprocessors for handlers etc.
 
