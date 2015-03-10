@@ -3,6 +3,47 @@ swagger-spec-middleware
 
 This is simple middleware for ExpressJS to handle resources given by the Swagger spec file.
 
+##Features
+
+* Easy installation
+* Support default handlers comosed with method + path, for example: getPets will handle paths -> '/pets' -> get
+* Support named handlers customized by operationId in specification file
+* Support ```get```, ```post```, ```put``` and ```delete``` operation methods
+* Parameters are automatically passed to handlers as arguments
+* Support ```query```, ```header```,  ```path```, ```formData```, ```body``` parameter sources
+* Parameters are automatically converted to the target type and format
+
+##Planned features
+* Support parameters default value
+* Input parameters validation, support for:
+  * required
+  * maximum
+  * exclusiveMaximum
+  * minimum
+  * exclusiveMinimum
+  * maxLength
+  * minLength
+  * pattern
+  * maxItems
+  * minItems
+  * uniqueItems
+  * enum
+  * multipleOf
+* Arrays type support
+* Collection format support
+* Schema validation
+* Meta information passing to handler
+* Support for ```consumes``` and ```produces```; input and output format determined by ```Accept``` and ```Content-Type``` header fields
+* Support inheritance for specification configuration model
+* Definitions, Parameters, Responses and References support
+* Extend exceptions support
+* Support other Swagger Spec versions than 2.0
+
+##Not planned features
+* Support for ```options```, ```head```, ```patch``` operation methods
+* Support security layer
+* Support for XML Objects
+
 # Hello world
 
 ```js
@@ -214,3 +255,6 @@ Parameters are automatically converted to target types as follow:
 |byte       |string         |byte          |                                 |
 |date       |string         |date          |As defined by full-date - RFC3339|
 |dateTime   |string         |date-time     |As defined by date-time - RFC3339|
+
+## Errors and exceptions
+If an
