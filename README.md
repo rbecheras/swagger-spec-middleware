@@ -38,6 +38,7 @@ This is simple middleware for ExpressJS to handle resources given by the Swagger
 * Definitions, Parameters, Responses and References support
 * Extend exceptions support
 * Support other Swagger Spec versions than 2.0
+* Add support for lifecycle like turn off validation, preprocessors and afterprocessors for handlers etc.
 
 ##Not planned features
 * Support for ```options```, ```head```, ```patch``` operation methods
