@@ -32,7 +32,7 @@ define(function (require) {
             try {
                 middleware.host(undefined, config);
             } catch (e) {
-                expect(e).is.eql('Unknow method type: non_existing_method');
+                expect(e).is.eql('The Swagger document is invalid...');
             }
         }
     });

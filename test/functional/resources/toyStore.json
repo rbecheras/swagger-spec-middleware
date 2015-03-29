@@ -160,14 +160,14 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/pet"
+                "$ref": "#/definitions/Pet"
               }
             }
           },
           "default": {
             "description": "unexpected error",
             "schema": {
-              "$ref": "#/definitions/errorModel"
+              "$ref": "#/definitions/Error"
             }
           }
         }
