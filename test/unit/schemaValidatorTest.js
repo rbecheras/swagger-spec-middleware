@@ -29,7 +29,6 @@ define(function (require) {
             validateSpecFile('test/resources/toyStore.json');
         },
         'should invalidSchema not pass validation': function () {
-            validateSpecFile('test/resources/invalidSchemaSpec.json');
             try {
                 validateSpecFile('test/resources/invalidSchemaSpec.json');
                 expect().fail('invalid shema shoul not pass validation');
