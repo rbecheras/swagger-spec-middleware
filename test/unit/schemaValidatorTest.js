@@ -33,7 +33,8 @@ define(function (require) {
                 validateSpecFile('test/resources/invalidSchemaSpec.json');
                 expect().fail('invalid shema shoul not pass validation');
             } catch (e) {
-                expect(e).not.to.be.null;
+                expect(e.msg).is.eql('Schema not valid');
+                expect(e.errors).is.not.empty;
             }
         }
 
