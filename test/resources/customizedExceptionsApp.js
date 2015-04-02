@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var express = require('express');
 var app = express();
-var swaggerSpecMiddleware = require('../../../index.js');
+var swaggerSpecMiddleware = require('../../index.js');
 
 var exceptionsHandlers = {
     'getExceptions': function () {
@@ -15,7 +15,7 @@ var exceptionsHandlers = {
     }
 }
 swaggerSpecMiddleware.host(app, {
-    spec: 'test/functional/resources/toyStore.json',
+    spec: 'test/resources/toyStore.json',
     handlers: _.merge(exceptionsHandlers),
     defaultExceptionStatus: 403,
     defaultExceptionMessage: 'Customized unknown exception occured',
@@ -32,6 +32,6 @@ app.get('/*', function (req, res) {
     console.log('hitting default hander outside swagger-spec-middleware');
     res.send(402);
 });
-console.log('app started');
+console.log('customized exception app started');
 module.exports = app;
 

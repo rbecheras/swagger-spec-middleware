@@ -32,7 +32,8 @@ define(function (require) {
             try {
                 middleware.host(undefined, config);
             } catch (e) {
-                expect(e).is.eql('The Swagger document is invalid...');
+                expect(e.msg).is.eql('Schema not valid');
+                expect(e.errors).is.not.empty;
             }
         }
     });

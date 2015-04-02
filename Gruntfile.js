@@ -70,7 +70,8 @@ module.exports = function (grunt) {
         intern: {
             options: {
                 config: 'test/intern',
-                reporters: ['console', 'lcovhtml', 'cobertura']
+                reporters: ['console', 'lcovhtml', 'cobertura'],
+                grep: grunt.option('grep') ? grunt.option('grep') : '.*'
             },
             all: {
                 options: {

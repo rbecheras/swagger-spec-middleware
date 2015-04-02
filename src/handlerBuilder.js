@@ -1,8 +1,9 @@
 var _ = require('lodash');
+var parameterValidator = require('./parameterValidator');
 var parameterExtractor = require('./parameterExtractor');
 
 
-var handleMethod = function (app, method, path, callback) {
+var handleOperation = function (app, method, path, callback) {
     if (method === 'get') {
         app.get(path, callback);
     } else if (method === 'post') {
@@ -22,7 +23,7 @@ var determineHandler = function (method, path, operation, handlers, unhandledOpe
         return handlers[operationId];
     }
     var defaultMethod = _.camelCase(method + '-' + path);
-    console.log('Default: ', defaultMethod);
+    //console.log('Default: ', defaultMethod);
     if (_.has(handlers, defaultMethod)) {
         return handlers[defaultMethod];
     }
@@ -35,30 +36,50 @@ var determineParams = function (req, spec, pathObject, operation, method) {
     return _.union([meta], inputPArameters);
 };
 
-var buildHandlers = function (app, spec, basePath, handlers, defaultExceptionStatus, defaultExceptionMessage, unhandledOperationHandler) {
-    var pathObjects = spec.paths;
-    _.forIn(pathObjects, function (pathObject, pathUrl) {
-        _.forIn(pathObject, function (operation, method) {
-            var path = basePath + pathUrl;
-            var handler = determineHandler(method, pathUrl, operation, handlers, unhandledOperationHandler);
-            var callback = function (req, res, next) {
-                try {
-                    var resultData = handler.apply(undefined, determineParams(req, spec, pathObject, operation, method));
-                    res.json(resultData);
-                } catch (e) {
-                    var status = _.has(e, 'status') ? e.status : defaultExceptionStatus;
-                    var message = _.has(e, 'message') ? e.message : defaultExceptionMessage;
-                    res.status(status).send(message);
-                }
-            };
-            handleMethod(app, method, path, callback);
-        });
+function buildCallbackForOperation(handler, spec, pathObject, operation, method, defaultExceptionStatus, defaultExceptionMessage) {
+    return function (req, res, next) {
+        try {
+            var handlerParameters = determineParams(req, spec, pathObject, operation, method);
+
+            parameterValidator.assureHandlerParametersValid(handlerParameters, spec, pathObject, operation, method, operation.parameters);
+            
+            var resultData = handler.apply(undefined, handlerParameters);
+            res.json(resultData);
+        } catch (e) {
+            console.log('An exception occured: %o', e);
+            var status = _.has(e, 'status') ? e.status : defaultExceptionStatus;
+            var message = _.has(e, 'message') ? e.message : defaultExceptionMessage;
+            res.status(status).send(message);
+        }
+    };
+}
+
+function buildHandlerForPath(pathObject, basePath, pathUrl, handlers, unhandledOperationHandler, spec, defaultExceptionStatus, defaultExceptionMessage, app) {
+    _.forIn(pathObject, function (operation, method) {
+        var path = basePath + pathUrl;
+        var handler = determineHandler(method, pathUrl, operation, handlers, unhandledOperationHandler);
+        var callback = buildCallbackForOperation(handler, spec, pathObject, operation, method, defaultExceptionStatus, defaultExceptionMessage);
+        handleOperation(app, method, path, callback);
     });
+};
 
+function buildHandlersForPaths(pathObjects, basePath, handlers, unhandledOperationHandler, spec, defaultExceptionStatus, defaultExceptionMessage, app) {
+    _.forIn(pathObjects, function (pathObject, pathUrl) {
+        buildHandlerForPath(pathObject, basePath, pathUrl, handlers, unhandledOperationHandler, spec, defaultExceptionStatus, defaultExceptionMessage, app);
+    });
+};
 
+var buildHandlersForSpec = function (app, spec, basePath, handlers, defaultExceptionStatus, defaultExceptionMessage, unhandledOperationHandler) {
+    var pathObjects = spec.paths;
+    buildHandlersForPaths(pathObjects, basePath, handlers,
+        unhandledOperationHandler, 
+        spec, 
+        defaultExceptionStatus, 
+        defaultExceptionMessage, 
+        app);
 };
 
 
 module.exports = {
-    buildHandlers: buildHandlers
+    buildHandlersForSpec: buildHandlersForSpec
 }

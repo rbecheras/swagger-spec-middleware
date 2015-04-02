@@ -1,6 +1,6 @@
 var fs = require('fs');
 var _ = require('lodash');
-var specValidator = require('./specValidator');
+var schemaValidator = require('./schemaValidator');
 var handlerBuilder = require('./handlerBuilder');
 
 module.exports.host = function (app, config) {
@@ -28,14 +28,18 @@ module.exports.host = function (app, config) {
     };
     
     var spec = readSpec(config.spec);
+    var specPath = readSpecPath(config.spec);
 
-    console.log("Validating spec from: " + readSpecPath(config.spec));
-
-    specValidator.assureSwaggerSpecValid(spec);
-    handlerBuilder.buildHandlers(app, spec, 
-        config.basePath, 
-        config.handlers, 
-        config.defaultExceptionStatus, 
+    console.log("Validating spec from: " + specPath);
+    schemaValidator.validateAgainstSwaggerSchema(spec);
+    
+    console.log("Building handlers");
+    handlerBuilder.buildHandlersForSpec(app, spec,
+        config.basePath,
+        config.handlers,
+        config.defaultExceptionStatus,
         config.defaultExceptionMessage,
         config.unhandledOperationHandler);
+
+
 };

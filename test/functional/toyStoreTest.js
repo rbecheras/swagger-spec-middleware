@@ -1,7 +1,7 @@
 define(function (require) {
     var suite = require('intern!object'),
-        app = require('intern/dojo/node!./resources/toyApp'),
-        tester = require('./resources/restServerTester'),
+        app = require('intern/dojo/node!../resources/toyApp'),
+        tester = require('../resources/restServerTester'),
         chai = tester.chai,
         expect = chai.expect;
 

@@ -1,5 +1,7 @@
 define([
     './middlewareTest',
     './parameterExtractorTest',
-    './parameterConverterTest'
+    './parameterConverterTest',
+    './parameterValidatorTest',
+    './schemaValidatorTest.js'
 ]);

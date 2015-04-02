@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var express = require('express');
 var app = express();
-var swaggerSpecMiddleware = require('../../../index.js');
+var swaggerSpecMiddleware = require('../../index.js');
 
 var handledFunction = function (meta) {
     return "handled";
@@ -70,7 +70,7 @@ var exceptionsHandlers = {
 }
 
 swaggerSpecMiddleware.host(app, {
-    spec: 'test/functional/resources/toyStore.json',
+    spec: 'test/resources/toyStore.json',
     handlers: _.merge(petsHandlers, carsHandlers, planesHandlers, dollsHandlers, exceptionsHandlers)
 
 });
