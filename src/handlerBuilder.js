@@ -37,11 +37,14 @@ var determineParams = function (req, spec, pathObject, operation, method) {
 };
 
 function buildCallbackForOperation(handler, spec, pathObject, operation, method, defaultExceptionStatus, defaultExceptionMessage) {
+    //var inputParameterValidationSchemas = parameterValidator.precompileSchemaValidatorsForParameters();
+    var inputParameterCompiledValidationSchemasValidators = {};
+    
     return function (req, res, next) {
         try {
             var handlerParameters = determineParams(req, spec, pathObject, operation, method);
 
-            parameterValidator.assureHandlerParametersValid(handlerParameters, spec, pathObject, operation, method, operation.parameters);
+            parameterValidator.assureHandlerParametersValid(handlerParameters, operation.parameters, inputParameterCompiledValidationSchemasValidators);
             
             var resultData = handler.apply(undefined, handlerParameters);
             res.json(resultData);

@@ -6,7 +6,7 @@ define(function (require) {
 
     function validateSpecFile(filePath) {
         var spec = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        schemaValidator.validateAgainstSwaggerSchema(spec);
+        schemaValidator.validateSwaggerSchema(spec);
     }
 
     suite({

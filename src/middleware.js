@@ -31,8 +31,8 @@ module.exports.host = function (app, config) {
     var specPath = readSpecPath(config.spec);
 
     console.log("Validating spec from: " + specPath);
-    schemaValidator.validateAgainstSwaggerSchema(spec);
-    
+    schemaValidator.validateSwaggerSchema(spec);
+
     console.log("Building handlers");
     handlerBuilder.buildHandlersForSpec(app, spec,
         config.basePath,

@@ -25,7 +25,11 @@ define(function (require) {
                     }
                 ]
             );
-            expect(errors).to.contain({path: 'id', value: undefined, msg: 'Is required'});
+            expect(errors).to.be.not.null;
+            expect(errors).is.not.empty;
+            expect(errors[0].path).is.equal('id');
+            expect(errors[0].value).is.equal(undefined);
+            expect(errors[0].msg).is.equal('Field is required');
         },
         'should not validate when not required': function () {
             var errors = parameterValidator.validateInputParameters(
@@ -47,7 +51,7 @@ define(function (require) {
                 ]
             );
             
-            expect(errors).to.not.contain({path: 'id', value: undefined, msg: 'Is required'});
+            expect(errors).to.be.empty;
         }
     });
 });
