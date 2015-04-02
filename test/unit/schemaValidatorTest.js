@@ -5,8 +5,24 @@ define(function (require) {
     var fs = require('intern/dojo/node!fs');
 
     suite({
-        'should petstore pass validation': function () {
-            var spec = JSON.parse(fs.readFileSync('test/resources/petstore.json', 'utf8'));
+        'should official petstore pass validation': function () {
+            var spec = JSON.parse(fs.readFileSync('test/resources/official/petstore.json', 'utf8'));
+            schemaValidator.validateAgainstSwaggerSchema(spec);
+        },
+        'should official petstore-expanded pass validation': function () {
+            var spec = JSON.parse(fs.readFileSync('test/resources/official/petstore-expanded.json', 'utf8'));
+            schemaValidator.validateAgainstSwaggerSchema(spec);
+        },
+        'should official petstore-minimal pass validation': function () {
+            var spec = JSON.parse(fs.readFileSync('test/resources/official/petstore-minimal.json', 'utf8'));
+            schemaValidator.validateAgainstSwaggerSchema(spec);
+        },
+        'should official petstore-simple pass validation': function () {
+            var spec = JSON.parse(fs.readFileSync('test/resources/official/petstore-simple.json', 'utf8'));
+            schemaValidator.validateAgainstSwaggerSchema(spec);
+        },
+        'should official petstore-with-external-docs pass validation': function () {
+            var spec = JSON.parse(fs.readFileSync('test/resources/official/petstore-with-external-docs.json', 'utf8'));
             schemaValidator.validateAgainstSwaggerSchema(spec);
         },
         'should toystore pass schema validation': function () {

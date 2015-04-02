@@ -14,16 +14,16 @@ var validateAgainstSchema = function (data, schemas) {
             errors: errors
         }
     }
-}
+};
 
 var validateAgainstSwaggerSchema = function (data) {
     var specSchemaPath = 'node_modules/swagger-schema-official/schema.json';
     var specSchemaAsString = fs.readFileSync(specSchemaPath, 'utf8');
     var schema = JSON.parse(specSchemaAsString);
     validateAgainstSchema(data, schema);
-}
+};
 
 module.exports = {
     validateAgainstSchema: validateAgainstSchema,
     validateAgainstSwaggerSchema: validateAgainstSwaggerSchema
-}
+};
