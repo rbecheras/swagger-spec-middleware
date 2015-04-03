@@ -172,6 +172,34 @@
           }
         }
       }
+    },
+    "/costumes": {
+      "get": {
+        "description": "Returns all costumes from the system that the user has access to",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/xml",
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/NewPet"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -192,6 +220,24 @@
           "type": "string"
         }
       }
+    },
+    "NewPet": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Pet"
+        },
+        {
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      ]
     },
     "Error": {
       "required": [
