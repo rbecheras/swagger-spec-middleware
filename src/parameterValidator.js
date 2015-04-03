@@ -51,6 +51,7 @@ var assureHandlerParametersValid = function (inputParameters, specParameters, in
     //console.log('Assuring valid parameters');
     var errors = validateInputParameters(inputParameters, specParameters, inputParameterCompiledValidationSchemasValidators);
     if (errors.length > 0) {
+        console.log('Input parameters are invalid %o', errors);
         throw {msg: 'Input parameters are invalid.', errors: errors};
     }
 };

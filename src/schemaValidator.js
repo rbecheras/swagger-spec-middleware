@@ -40,7 +40,7 @@ var precompileSchemaValidatorsForParameter = function (spec, inputParameterSchem
             errors: errors
         }
     }
-    ;
+
     return function (value) {
         var valid = validator.validate(value, inputParameterSchema);
 
