@@ -1,4 +1,43 @@
 var _ = require('lodash');
+var arrayTransformator = require('./arrayTransformator');
+
+/**
+ * Converts value to object from the given spec
+ * @param value
+ * @param itemsSpec
+ */
+var convertObject = function (value, itemsSpec) {
+
+    return value;
+};
+
+/**
+ * Converts arrays from the given spec configuration
+ * @param value
+ * @param parameterSpec
+ */
+var convertArray = function (value, parameterSpec) {
+
+    var type = parameterSpec.type,
+        format = parameterSpec.format,
+        items = parameterSpec.items,
+        collectionFormat = parameterSpec.collectionFormat;
+
+    var array = [];
+    console.log('Value: %j', value);
+    if (collectionFormat === 'multi') {
+        array = value;
+    } else {
+        array = arrayTransformator.split(value, collectionFormat);
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        array[i] = convert(array[i], items);
+    }
+
+    console.log("%o", value);
+    return array;
+};
 
 /**
  * Converts parameter to the type described by specification type, format and items. Format is determined by the type as follows:
@@ -17,18 +56,23 @@ var _ = require('lodash');
  * </table>
  * </p>
  * @param value parameterOriginalValue
- * @param type must be one of: "string", "number", "integer", "boolean", "array"
- * @param format
- * @param items
+ * @param parameterSpec
  */
-var convert = function (value, type, format, items) {
+var convert = function (value, parameterSpec) {
+    var type = parameterSpec.type,
+        format = parameterSpec.format,
+        items = parameterSpec.items,
+        collectionFormat = parameterSpec.collectionFormat;
+
+    //console.log('Convert value: ' + value + ', for type: ' + type + ', format: ' + format + ', items: ' + items + ', collectionFormat: ' + collectionFormat);
+    
     if ('integer' === type) {
-        if('int32' === format || 'int64' === format) {
+        if ('int32' === format || 'int64' === format) {
             return parseInt(value);
         }
     }
     if ('number' === type) {
-        if('float' === format || 'double' === format) {
+        if ('float' === format || 'double' === format) {
             return parseFloat(value);
         }
     }
@@ -36,14 +80,17 @@ var convert = function (value, type, format, items) {
         if ('date' === format || 'date-time' === format) {
             return new Date(value);
         }
-        if(format === undefined || 'byte' === format) {
+        if (format === undefined || 'byte' === format) {
             return value;
         }
     }
     if ('boolean' === type) {
         return "true" === value;
     }
-    throw 'Could not convert value: ' + value + ', for type: ' + type + ', format: ' + format + ', items: ' + items;
+    if ('array' === type) {
+        return convertArray(value, parameterSpec);
+    }
+    throw 'Could not convert value: ' + value + ', for type: ' + type + ', format: ' + format + ', items: ' + items + ', collectionFormat: ' + collectionFormat;
 
 };
 

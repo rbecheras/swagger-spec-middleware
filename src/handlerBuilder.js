@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var schemaValidator = require('./schemaValidator');
 var parameterValidator = require('./parameterValidator');
 var parameterExtractor = require('./parameterExtractor');
 
@@ -38,7 +39,8 @@ var determineParams = function (req, spec, pathObject, operation, method) {
 
 function buildCallbackForOperation(handler, spec, pathObject, operation, method, defaultExceptionStatus, defaultExceptionMessage) {
     var inputParameterCompiledValidationSchemasValidators = parameterValidator.precompileSchemaValidatorsForParameters(spec, operation);
-
+    schemaValidator.assureValidOperationDynamicSchema(operation);
+    
     return function (req, res, next) {
         try {
             var handlerParameters = determineParams(req, spec, pathObject, operation, method);

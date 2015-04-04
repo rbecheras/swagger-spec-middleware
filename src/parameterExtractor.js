@@ -1,24 +1,30 @@
 var _ = require('lodash');
 var parameterConverter = require('./parameterConverter');
+var arrayTransformator = require('./arrayTransformator');
+
 
 /**
  * Extracting parameter by method type
  * @param req
- * @param parameterName
- * @param parameterMethodType allowed values: "query", "header", "path", "formData" or "body"
+ * @param parameterSpec, where:
+ *  - parameterName
+ *  - parameterMethodType allowed values: "query", "header", "path" or "body"
  */
-var extractInputParameterByMethodType = function (req, parameterName, parameterMethodType) {
+var extractInputParameterByMethodType = function (req, parameterSpec) {
+    var parameterName = parameterSpec.name, 
+        parameterMethodType = parameterSpec.in,
+        collectionFormat = parameterSpec.collectionFormat;
+    
     if (parameterMethodType === 'query') {
-        return req.query[parameterName];
+        var out = req.query[parameterName];
+        console.log('out: $j', out);
+        return collectionFormat !== 'multi' && _.isArray(out) ? arrayTransformator.join(out, collectionFormat) : out;
     }
     if (parameterMethodType === 'header') {
         return req.header(parameterName);
     }
     if (parameterMethodType === 'path') {
         return req.path(parameterName);
-    }
-    if (parameterMethodType === 'formData') {
-        return req.body[parameterName];
     }
     if (parameterMethodType === 'body') {
         return req.body[parameterName];
@@ -42,8 +48,11 @@ var extractInputParameterByMethodType = function (req, parameterName, parameterM
  */
 
 var extractInputParameter = function (req, parameterSpec) {
-    var parameterOriginalValue = extractInputParameterByMethodType(req, parameterSpec.name, parameterSpec.in);
-    var parameterConvertedValue = parameterConverter.convert(parameterOriginalValue, parameterSpec.type, parameterSpec.format, parameterSpec.items);
+    var parameterOriginalValue = extractInputParameterByMethodType(req, parameterSpec);
+    if(parameterOriginalValue == null){
+        return parameterOriginalValue;
+    }
+    var parameterConvertedValue = parameterConverter.convert(parameterOriginalValue, parameterSpec);
     return parameterConvertedValue;
 };
 

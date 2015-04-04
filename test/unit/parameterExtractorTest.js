@@ -37,10 +37,6 @@ define(function (require) {
                     "in": "path",
                     "type": "string"
                 }, {
-                    "name": "formParam",
-                    "in": "formData",
-                    "type": "string"
-                }, {
                     "name": "bodyParam",
                     "in": "body",
                     "type": "string"
@@ -48,7 +44,7 @@ define(function (require) {
             ];
 
             var result = parameterExtractor.extractInputParameters(inputReq, inputSpec);
-            expect(result).to.eql(['queryValue','headerValue', 'pathValue', 'formValue', 'bodyValue']);
+            expect(result).to.eql(['queryValue', 'headerValue', 'pathValue', 'bodyValue']);
         },
         'should throw exception when unsupported method type was specified': function () {
             var inputSpec = [
@@ -61,9 +57,9 @@ define(function (require) {
 
             try {
                 parameterExtractor.extractInputParameters(null, inputSpec);
-            }catch(e){
+            } catch (e) {
                 expect(e).is.eql('Unsupported parameter method type: non exsisting method type, for parameter: queryParam');
-                
+
             }
         }
     });
