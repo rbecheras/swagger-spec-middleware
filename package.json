@@ -1,5 +1,6 @@
 {
   "name": "swagger-spec-middleware",
+  "description": " Swagger Spec hosting middleware for ExpressJS ",
   "version": "1.2.0",
   "engines": {
     "node": ">= 0.10.0"
