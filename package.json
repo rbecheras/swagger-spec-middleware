@@ -9,6 +9,9 @@
     "url" : "https://github.com/kospiotr/swagger-spec-middleware.git"
   },
   "homepage": "https://github.com/kospiotr/swagger-spec-middleware",
+  "bugs": {
+    "url" : "https://github.com/kospiotr/swagger-spec-middleware/issues"
+  },
   "devDependencies": {
     "body-parser": "^1.12.2",
     "chai": "^2.1.1",
