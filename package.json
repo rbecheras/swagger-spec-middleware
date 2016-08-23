@@ -4,6 +4,10 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/kospiotr/swagger-spec-middleware.git"
+  },
   "devDependencies": {
     "body-parser": "^1.12.2",
     "chai": "^2.1.1",
