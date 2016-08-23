@@ -20,6 +20,12 @@
     "name" : "Piotr Kosmowski",
     "url" : "https://kospiotr.github.io"
   },
+  "contributors": [
+    {
+      "name": "Rémi Becheras",
+      "url": "https://rbecheras.github.io"
+    }
+  ],
   "devDependencies": {
     "body-parser": "^1.12.2",
     "chai": "^2.1.1",
